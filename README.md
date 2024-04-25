@@ -5,10 +5,12 @@ The **15-Puzzle** is a game consisting of 15 squares numbered from 1 to 15 and *
 
 ## Solve puzzle automatically to see the correct order
 If you want to see the correct order in which the puzzle should be in, just press the left button that's labeled with "Kacheln sortieren".
+
 ![image](https://github.com/LouisLohmer/15-Puzzle/assets/126259607/fda86131-df27-46e0-a1d3-abb8123a4ac7)
 
 ## Shuffle puzzle
 The website will shuffle the puzzle randomly and automatically, if it's loaded. However, by pressing the right button that's labeled with "Neues Spiel", you can also shuffle it again and start a new game
+
 ![image](https://github.com/LouisLohmer/15-Puzzle/assets/126259607/fda86131-df27-46e0-a1d3-abb8123a4ac7)
 
 
