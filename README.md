@@ -1,2 +1,2 @@
 # 15-Puzzle
-The 15-Puzzle is a game consisting of 15 squares numbered from 1 to 15 and an empty square in which the direct horizontally or vertically square can be moved into. The goal is to move the tiles into the correct order from top to bottom, so each number is ordered correctly.
+The 15-Puzzle is a game consisting of 15 squares numbered from 1 to 15 and an empty square in which the direct horizontally or vertically neighbor square/tile can be moved into. The goal is to move the tiles into the correct order from top to bottom, so each number is ordered correctly. By hovering over the tiles, you can see which can be moved and which cant. Non-moveable tiles will stay blue, while moveable tiles turn purple and smaller.
