@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html lang="de">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>15-puzzle</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>15-puzzle</title>
+    <link rel="icon" href="assets/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="stylesheet.css" />
+  </head>
+  <body>
+    <div class="white-container">
+      <div class="layout-puzzle"></div>
+      <div class="blue-tile" id="tile-1">1</div>
+      <div class="blue-tile" id="tile-2">2</div>
+      <div class="blue-tile" id="tile-3">3</div>
+      <div class="blue-tile" id="tile-4">4</div>
+      <div class="blue-tile" id="tile-5">5</div>
+      <div class="blue-tile" id="tile-6">6</div>
+      <div class="blue-tile" id="tile-7">7</div>
+      <div class="blue-tile" id="tile-8">8</div>
+      <div class="blue-tile" id="tile-9">9</div>
+      <div class="blue-tile" id="tile-10">10</div>
+      <div class="blue-tile" id="tile-11">11</div>
+      <div class="blue-tile" id="tile-12">12</div>
+      <div class="blue-tile" id="tile-13">13</div>
+      <div class="blue-tile" id="tile-14">14</div>
+      <div class="blue-tile" id="tile-15">15</div>
+      <div id="tile-16"></div>
 
-        <link rel="stylesheet" href="stylesheet.css" />
-    </head>
-    <body>
-        <div class="white-container">
-            <div class="layout-puzzle"></div>
-            <div class="blue-tile" id="tile-1">1</div>
-            <div class="blue-tile" id="tile-2">2</div>
-            <div class="blue-tile" id="tile-3">3</div>
-            <div class="blue-tile" id="tile-4">4</div>
-            <div class="blue-tile" id="tile-5">5</div>
-            <div class="blue-tile" id="tile-6">6</div>
-            <div class="blue-tile" id="tile-7">7</div>
-            <div class="blue-tile" id="tile-8">8</div>
-            <div class="blue-tile" id="tile-9">9</div>
-            <div class="blue-tile" id="tile-10">10</div>
-            <div class="blue-tile" id="tile-11">11</div>
-            <div class="blue-tile" id="tile-12">12</div>
-            <div class="blue-tile" id="tile-13">13</div>
-            <div class="blue-tile" id="tile-14">14</div>
-            <div class="blue-tile" id="tile-15">15</div>
-            <div id="tile-16"></div>
+      <div class="flex">
+        <button onclick="sortPuzzle()">Kacheln sortieren</button>
+        <button onclick="newGame()">Neues Spiel</button>
+      </div>
 
-            <div class="flex">
-                <button onclick="sortPuzzle()">Kacheln sortieren</button>
-                <button onclick="newGame()">Neues Spiel</button>
-            </div>
-
-            <span class="watermark">Made by LonelyStreetracer with <span class="heart">❤</span></span>
-        </div>
-        <script src="15-puzzle.js"></script>
-    </body>
+      <span class="watermark"
+        >Made by LonelyStreetracer with <span class="heart">❤</span></span
+      >
+    </div>
+    <script src="15-puzzle.js"></script>
+  </body>
 </html>
