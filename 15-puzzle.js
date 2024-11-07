@@ -200,16 +200,12 @@ function sortPuzzle() {
 }
 
 function getWinner() {
-    let winner;
     for (let i = 0; i <= 15; i++) {
         if (i + 1 === positionGrid[i]) {
-            winner = true;
-        } else {
+            alert('Du hast gewonnen!');
             return;
         }
     }
-
-    alert('Du hast gewonnen!');
 }
 
 shufflePuzzle();
