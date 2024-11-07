@@ -64,13 +64,13 @@ button:hover {
     width: 90px;
 }
 
-.flex {
+.puzzle-call-to-actions {
     display: flex;
     width: 400px;
     justify-content: space-between;
 }
 
-.white-container {
+.white-background {
     background-color: #f9f6ee;
     flex-direction: column;
     height: 525px;
