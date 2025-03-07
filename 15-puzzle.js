@@ -1,226 +1,221 @@
 let currentPuzzleLayout = [];
 
 function shufflePuzzle() {
-  const min = 1;
-  const max = 16;
-  let allAvailableTiles = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-  ];
+    const min = 1;
+    const max = 16;
+    let allAvailableTiles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
-  for (let i = 1; i <= 16; i++) {
-    let stopCondition = false;
+    for (let i = 1; i <= 16; i++) {
+        let stopCondition = false;
 
-    while (stopCondition !== true) {
-      let randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+        while (stopCondition !== true) {
+            let randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
 
-      if (allAvailableTiles.includes(randomNumber)) {
-        allAvailableTiles.splice(allAvailableTiles.indexOf(randomNumber), 1);
-        document
-          .querySelector(".layout-puzzle")
-          .append(document.getElementById("tile-" + randomNumber));
-        // Save random shuffeled sequence in an array in order to calculate neighbour fields and more
-        currentPuzzleLayout.push(randomNumber);
+            if (allAvailableTiles.includes(randomNumber)) {
+                allAvailableTiles.splice(allAvailableTiles.indexOf(randomNumber), 1);
+                document
+                    .querySelector('.layout-puzzle')
+                    .append(document.getElementById('tile-' + randomNumber));
+                currentPuzzleLayout.push(randomNumber);
 
-        stopCondition = true;
-      }
+                stopCondition = true;
+            }
+        }
     }
-  }
-  findNeighbourfields();
+
+    findNeighbourTiles();
 }
 
-function findNeighbourfields() {
-  // Get current Empty field of the puzzle
-  let emptyDiv;
-  let emptyDivPosition;
-  for (let i = 0; i <= currentPuzzleLayout.length; i++) {
-    if (currentPuzzleLayout[i] === 16) {
-      emptyDiv = document.getElementById("tile-" + currentPuzzleLayout[i]);
-      emptyDivPosition = i;
+function findNeighbourTiles() {
+    let emptyTile;
+    let emptyTilePosition;
+    let topNeighbourTileExits = false;
+    let bottomNeighbourTileExits = false;
+    let rightNeighbourTile;
+    let rightNeighbourTileExits = false;
+    let leftNeighbourTile;
+    let leftNeighbourTileExits = false;
+
+    for (let i = 0; i <= currentPuzzleLayout.length; i++) {
+        if (currentPuzzleLayout[i] === 16) {
+            emptyTile = document.getElementById('tile-' + currentPuzzleLayout[i]);
+            emptyTilePosition = i;
+        }
     }
-  }
 
-  // Set top neighbour field and it´s Eventlistener to move around
-  let neighbourfieldTop = document.getElementById(
-    "tile-" + currentPuzzleLayout[emptyDivPosition - 4]
-  );
-  let eventistenerTop;
-  if (neighbourfieldTop !== null) {
-    neighbourfieldTop.addEventListener("click", moveNeighbourfields);
-    neighbourfieldTop.classList.add("purple-div");
-    // Flag to check later, if a eventlistener is currently set
-    eventistenerTop = true;
-  }
+    // WARNING: DO NOT MOVE VARIABLE topNeighbourTile FROM LINE 47, OTHERWISE THE TILE IS ALWAYS NULL
+    let topNeighbourTile = document.getElementById('tile-' + currentPuzzleLayout[emptyTilePosition - 4]);
 
-  // Set bottom neighbour field and it´s Eventlistener to move around
-  let neighbourfieldBottom = document.getElementById(
-    "tile-" + currentPuzzleLayout[emptyDivPosition + 4]
-  );
-  let eventlistenerBottom;
-  if (neighbourfieldBottom !== null) {
-    neighbourfieldBottom.addEventListener("click", moveNeighbourfields);
-    neighbourfieldBottom.classList.add("purple-div");
-    // Flag to check later, if a eventlistener is currently set
-    eventlistenerBottom = true;
-  }
+    if (topNeighbourTile !== null) {
+        topNeighbourTile.addEventListener('click', moveNeighbourTiles);
+        topNeighbourTile.classList.add('purple-tile');
+        topNeighbourTileExits = true;
+    }
 
-  // Get right neighbour field and it´s Eventlistener to move around
-  let neighbourfieldRight;
-  let eventlistenerRight;
-  if (
-    emptyDivPosition !== 3 &&
-    emptyDivPosition !== 7 &&
-    emptyDivPosition !== 11 &&
-    emptyDivPosition !== 15
-  ) {
-    neighbourfieldRight = document.getElementById(
-      "tile-" + currentPuzzleLayout[emptyDivPosition + 1]
-    );
-    neighbourfieldRight.addEventListener("click", moveNeighbourfields);
-    neighbourfieldRight.classList.add("purple-div");
-    // Flag to check later, if a eventlistener is currently set
-    eventlistenerRight = true;
-  }
+    // WARNING: DO NOT MOVE VARIABLE bottomNeighbourTilee FROM LINE 54, OTHERWISE THE TILE IS ALWAYS NULL
+    let bottomNeighbourTile = document.getElementById('tile-' + currentPuzzleLayout[emptyTilePosition + 4]);
 
-  // Get left neighbour field and it´s Eventlistener to move around
-  let neighbourfieldLeft;
-  let eventlistenerLeft;
-  if (
-    emptyDivPosition !== 0 &&
-    emptyDivPosition !== 4 &&
-    emptyDivPosition !== 8 &&
-    emptyDivPosition !== 12
-  ) {
-    neighbourfieldLeft = document.getElementById(
-      "tile-" + currentPuzzleLayout[emptyDivPosition - 1]
-    );
-    neighbourfieldLeft.addEventListener("click", moveNeighbourfields);
-    neighbourfieldLeft.classList.add("purple-div");
-    // Flag to check later, if a eventlistener is currently set
-    eventlistenerLeft = true;
-  }
+    if (bottomNeighbourTile !== null) {
+        bottomNeighbourTile.addEventListener('click', moveNeighbourTiles);
+        bottomNeighbourTile.classList.add('purple-tile');
+        bottomNeighbourTileExits = true;
+    }
 
-  return [
-    emptyDiv,
-    emptyDivPosition,
-    neighbourfieldLeft,
-    neighbourfieldRight,
-    neighbourfieldTop,
-    neighbourfieldBottom,
-    eventistenerTop,
-    eventlistenerBottom,
-    eventlistenerLeft,
-    eventlistenerRight,
-  ];
+    if (
+        emptyTilePosition !== 3 &&
+        emptyTilePosition !== 7 &&
+        emptyTilePosition !== 11 &&
+        emptyTilePosition !== 15
+    ) {
+        rightNeighbourTile = document.getElementById('tile-' + currentPuzzleLayout[emptyTilePosition + 1]);
+        rightNeighbourTile.addEventListener('click', moveNeighbourTiles);
+        rightNeighbourTile.classList.add('purple-tile');
+        rightNeighbourTileExits = true;
+    }
+
+    if (
+        emptyTilePosition !== 0 &&
+        emptyTilePosition !== 4 &&
+        emptyTilePosition !== 8 &&
+        emptyTilePosition !== 12
+    ) {
+        leftNeighbourTile = document.getElementById('tile-' + currentPuzzleLayout[emptyTilePosition - 1]);
+        leftNeighbourTile.addEventListener('click', moveNeighbourTiles);
+        leftNeighbourTile.classList.add('purple-tile');
+        leftNeighbourTileExits = true;
+    }
+
+    return [
+        emptyTile,
+        emptyTilePosition,
+        leftNeighbourTile,
+        rightNeighbourTile,
+        topNeighbourTile,
+        bottomNeighbourTile,
+        topNeighbourTileExits,
+        bottomNeighbourTileExits,
+        leftNeighbourTileExits,
+        rightNeighbourTileExits,
+    ];
 }
 
-function moveNeighbourfields(event) {
-  let returnValues = findNeighbourfields();
-  let x;
-  let y;
-  let gridlayout = document.querySelector(".layout-puzzle");
+function removeCurrentNeighbourTiles() {
+    let neighbourTilesData = findNeighbourTiles();
 
-  let clickedNeighbourfield = event.currentTarget;
+    if (neighbourTilesData[6] === true) {
+        neighbourTilesData[4].removeEventListener('click', moveNeighbourTiles);
+        neighbourTilesData[4].classList.remove('purple-tile');
+    }
 
-  if (clickedNeighbourfield === returnValues[4]) {
-    x = 4;
-    y = 3;
-  } else if (clickedNeighbourfield === returnValues[5]) {
-    x = -4;
-    y = -5;
-  } else if (clickedNeighbourfield === returnValues[2]) {
-    x = 1;
-    y = 0;
-  } else if (clickedNeighbourfield === returnValues[3]) {
-    x = -1;
-    y = -1;
-  }
+    if (neighbourTilesData[8] === true) {
+        neighbourTilesData[2].removeEventListener('click', moveNeighbourTiles);
+        neighbourTilesData[2].classList.remove('purple-tile');
+    }
 
-  // Swap Position in Grid and in the array, where current sequenz is saved
-  gridlayout.insertBefore(clickedNeighbourfield, returnValues[0]);
+    if (neighbourTilesData[9] === true) {
+        neighbourTilesData[3].removeEventListener('click', moveNeighbourTiles);
+        neighbourTilesData[3].classList.remove('purple-tile');
+    }
 
-  let temp = currentPuzzleLayout[returnValues[1] - x];
-  currentPuzzleLayout[returnValues[1] - x] =
-    currentPuzzleLayout[returnValues[1]];
-  currentPuzzleLayout[returnValues[1]] = temp;
-
-  gridlayout.insertBefore(
-    returnValues[0],
-    document.getElementById("tile-" + currentPuzzleLayout[returnValues[1] - y])
-  );
-
-  if (returnValues[6] === true) {
-    returnValues[4].removeEventListener("click", moveNeighbourfields);
-    returnValues[4].classList.remove("purple-div");
-    returnValues[6] = false;
-  }
-
-  if (returnValues[7] === true) {
-    returnValues[5].removeEventListener("click", moveNeighbourfields);
-    returnValues[5].classList.remove("purple-div");
-    returnValues[7] = false;
-  }
-
-  if (returnValues[9] === true) {
-    returnValues[3].removeEventListener("click", moveNeighbourfields);
-    returnValues[3].classList.remove("purple-div");
-    returnValues[9] = false;
-  }
-
-  if (returnValues[8] === true) {
-    returnValues[2].removeEventListener("click", moveNeighbourfields);
-    returnValues[2].classList.remove("purple-div");
-    returnValues[8] = false;
-  }
-
-  getWinner();
-
-  findNeighbourfields();
+    if (neighbourTilesData[7] === true) {
+        neighbourTilesData[5].removeEventListener('click', moveNeighbourTiles);
+        neighbourTilesData[5].classList.remove('purple-tile');
+    }
 }
 
-function newGame() {
-  let returnValues = findNeighbourfields();
+function moveNeighbourTiles(event) {
+    let neighbourTilesData = findNeighbourTiles();
+    let xCoordinate;
+    let yCoordinate;
+    let gridlayout = document.querySelector('.layout-puzzle');
+    let clickedNeighbourfield = event.currentTarget;
 
-  if (returnValues[6] === true) {
-    returnValues[4].removeEventListener("click", moveNeighbourfields);
-    returnValues[4].classList.remove("purple-div");
-  }
+    if (clickedNeighbourfield === neighbourTilesData[4]) {
+        xCoordinate = 4;
+        yCoordinate = 3;
+    } else if (clickedNeighbourfield === neighbourTilesData[5]) {
+        xCoordinate = -4;
+        yCoordinate = -5;
+    } else if (clickedNeighbourfield === neighbourTilesData[2]) {
+        xCoordinate = 1;
+        yCoordinate = 0;
+    } else if (clickedNeighbourfield === neighbourTilesData[3]) {
+        xCoordinate = -1;
+        yCoordinate = -1;
+    }
 
-  if (returnValues[8] === true) {
-    returnValues[2].removeEventListener("click", moveNeighbourfields);
-    returnValues[2].classList.remove("purple-div");
-  }
+    // Swap Position of empty div and the clicked neighbourfield in Grid and in the array, in order to save the new tile sequenze
+    gridlayout.insertBefore(clickedNeighbourfield, neighbourTilesData[0]);
 
-  if (returnValues[9] === true) {
-    returnValues[3].removeEventListener("click", moveNeighbourfields);
-    returnValues[3].classList.remove("purple-div");
-  }
+    let temp = currentPuzzleLayout[neighbourTilesData[1] - xCoordinate];
+    currentPuzzleLayout[neighbourTilesData[1] - xCoordinate] = currentPuzzleLayout[neighbourTilesData[1]];
+    currentPuzzleLayout[neighbourTilesData[1]] = temp;
 
-  if (returnValues[7] === true) {
-    returnValues[5].removeEventListener("click", moveNeighbourfields);
-    returnValues[5].classList.remove("purple-div");
-  }
+    gridlayout.insertBefore(
+        neighbourTilesData[0],
+        document.getElementById('tile-' + currentPuzzleLayout[neighbourTilesData[1] - yCoordinate]),
+    );
 
-  currentPuzzleLayout = [];
-  shufflePuzzle();
+    // Remove old neighbour tiles from the puzzel layout
+    if (neighbourTilesData[6] === true) {
+        neighbourTilesData[4].removeEventListener('click', moveNeighbourTiles);
+        neighbourTilesData[4].classList.remove('purple-tile');
+        neighbourTilesData[6] = false;
+    }
+
+    if (neighbourTilesData[7] === true) {
+        neighbourTilesData[5].removeEventListener('click', moveNeighbourTiles);
+        neighbourTilesData[5].classList.remove('purple-tile');
+        neighbourTilesData[7] = false;
+    }
+
+    if (neighbourTilesData[9] === true) {
+        neighbourTilesData[3].removeEventListener('click', moveNeighbourTiles);
+        neighbourTilesData[3].classList.remove('purple-tile');
+        neighbourTilesData[9] = false;
+    }
+
+    if (neighbourTilesData[8] === true) {
+        neighbourTilesData[2].removeEventListener('click', moveNeighbourTiles);
+        neighbourTilesData[2].classList.remove('purple-tile');
+        neighbourTilesData[8] = false;
+    }
+
+    verifyWinner();
+
+    findNeighbourTiles();
+}
+
+function startNewGame() {
+    // Remove old neighbour tiles from the puzzel layout before the game starts
+    removeCurrentNeighbourTiles();
+
+    currentPuzzleLayout = [];
+
+    shufflePuzzle();
 }
 
 function sortPuzzle() {
-  for (let i = 1; i <= 16; i++) {
-    document
-      .querySelector(".layout-puzzle")
-      .append(document.getElementById("tile-" + i));
-  }
+    let puzzleLayout = document.querySelector('.layout-puzzle');
+
+    // Remove old neighbour tiles from the puzzel layout before the game starts
+    removeCurrentNeighbourTiles();
+
+    for (let i = 1; i <= 16; i++) {
+        puzzleLayout.append(document.getElementById('tile-' + i));
+    }
 }
 
-function getWinner() {
-  let correctOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-  for (let i = 0; i < correctOrder.length; i++) {
-    if (correctOrder[i] !== currentPuzzleLayout[i]) {
-      return;
-    }
-  }
+function verifyWinner() {
+    let correctTileOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
-  alert("Du hast gewonnen!");
+    for (let i = 0; i < correctTileOrder.length; i++) {
+        if (correctTileOrder[i] !== currentPuzzleLayout[i]) {
+            return;
+        }
+    }
+
+    alert('Du hast gewonnen!');
 }
 
 shufflePuzzle();
